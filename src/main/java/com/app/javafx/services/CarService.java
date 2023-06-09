@@ -1,17 +1,16 @@
 package com.app.javafx.services;
 
+import com.app.javafx.model.base.Vehicle;
 import com.app.javafx.model.entities.Car;
-import com.app.javafx.repositories.CarRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
-@Service
-public class CarService {
+import java.util.List;
+import java.util.UUID;
 
-    @Autowired
-    private CarRepository repository;
+public interface CarService {
 
-    public void save(Car car) {
-        this.repository.save(car);
-    }
+    void clear();
+    List<Car> findAll();
+    Car findById(UUID id);
+    void save(Car car);
+
 }

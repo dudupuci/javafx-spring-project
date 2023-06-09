@@ -1,51 +1,91 @@
 package com.app.javafx.model.entities;
 
-import javax.persistence.Column;
+import com.app.javafx.model.base.Vehicle;
+import com.app.javafx.model.enums.VehicleMark;
+import com.app.javafx.model.enums.VehicleType;
+
 import javax.persistence.Entity;
-import javax.persistence.Id;
+import java.math.BigDecimal;
 import java.util.UUID;
 
 @Entity
-public class Car {
+public class Car extends Vehicle {
 
-    public Car() {}
-    public Car(UUID id, String name, String color) {
-        this.id = id;
-        this.name = name;
-        this.color = color;
+    public Car(UUID id, String name, VehicleType vehicleType, VehicleMark vehicleMark, BigDecimal price, Long kilometersDriven, Short horsePower) {
+        super(id, name, vehicleType, vehicleMark, price, kilometersDriven, horsePower);
     }
 
-    public Car(String name, String color) {
-        this.name = name;
-        this.color = color;
+    public Car() {
     }
 
-    @Id
-    private UUID id = UUID.randomUUID();
-    private String name;
-    private String color;
-
+    @Override
     public UUID getId() {
-        return id;
+        return this.id;
     }
 
+    @Override
     public void setId(UUID id) {
         this.id = id;
     }
 
+    @Override
     public String getName() {
-        return name;
+        return this.name;
     }
 
+    @Override
     public void setName(String name) {
         this.name = name;
     }
 
-    public String getColor() {
-        return color;
+    @Override
+
+    public VehicleType getVehicleType() {
+        return this.vehicleType;
     }
 
-    public void setColor(String color) {
-        this.color = color;
+    @Override
+    public void setVehicleType(VehicleType vehicleType) {
+        this.vehicleType = vehicleType;
+    }
+
+    @Override
+    public VehicleMark getVehicleMark() {
+        return this.vehicleMark;
+    }
+
+    @Override
+    public void setVehicleMark(VehicleMark vehicleMark) {
+        this.vehicleMark = vehicleMark;
+    }
+
+    @Override
+    public BigDecimal getPrice() {
+        return this.price;
+    }
+
+    @Override
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+
+    @Override
+    public Long getKilometersDriven() {
+        return this.kilometersDriven;
+    }
+
+    @Override
+    public void setKilometersDriven(Long kilometersDriven) {
+        this.kilometersDriven = kilometersDriven;
+    }
+
+    @Override
+    public Short getHorsePower() {
+        return this.horsePower;
+    }
+
+    @Override
+    public void setHorsePower(Short horsePower) {
+        this.horsePower = horsePower;
     }
 }
