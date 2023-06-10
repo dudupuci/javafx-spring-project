@@ -24,7 +24,7 @@ public class StageListener implements ApplicationListener<StageReadyEvent> {
     private final ApplicationContext applicationContext;
 
     public StageListener(@Value("${spring.application.ui.title}") String applicationTitle,
-                         @Value("classpath:gui/MainView.fxml") Resource fxml,
+                         @Value("classpath:gui/LoginView.fxml") Resource fxml,
                          ApplicationContext applicationContext) {
         this.applicationTitle = applicationTitle;
         this.fxml = fxml;
@@ -38,19 +38,20 @@ public class StageListener implements ApplicationListener<StageReadyEvent> {
             URL url = this.fxml.getURL();
             FXMLLoader fxmlLoader = new FXMLLoader(url);
             fxmlLoader.setControllerFactory(aClass -> applicationContext.getBean(aClass));
-            ScrollPane scrollPane = fxmlLoader.load();
+            Parent parent = fxmlLoader.load();
 
-            scrollPane.setFitToHeight(true); // Adjust height and width of component in view
-            scrollPane.setFitToWidth(true);
+            //parent.setFitToHeight(true); // Adjust height and width of component in view
+            //parent.setFitToWidth(true);
 
-            scrollPane.setStyle("-fx-border-radius: 20px; -fx-background-color: #e0e0e0;");
 
-            Scene scene = new Scene(scrollPane, 600, 600);
+
+            Scene scene = new Scene(parent, 600, 600);
             stage.setScene(scene);
             stage.setTitle(this.applicationTitle);
 
 
             stage.initStyle(StageStyle.UNDECORATED);
+
 
 
             stage.show();

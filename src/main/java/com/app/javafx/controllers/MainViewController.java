@@ -13,6 +13,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
@@ -22,6 +23,15 @@ import java.util.UUID;
 
 @Component
 public class MainViewController implements Initializable {
+
+    @Value("${system.help.about.message}")
+    private String aboutMessage;
+
+    @Value("${system.help.about.header}")
+    private String aboutHeader;
+
+    @Value("${system.help.about.title}")
+    private String aboutTitle;
 
     @Autowired
     private CarServiceImpl carService;
@@ -43,6 +53,8 @@ public class MainViewController implements Initializable {
     private TableColumn<Car, Short> tableColumnHorsePower;
     @FXML
     private MenuItem exitMenuItem;
+    @FXML
+    private MenuItem aboutMenuItem;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -57,7 +69,7 @@ public class MainViewController implements Initializable {
         loadCars();
 
         if (carTableView.getItems().size() == 0) {
-            SystemAlerts.showAlert(
+            SystemAlerts.showAlertWithDelay(
                     "carts_not_found",
                     null,
                     "Cars not found!",
@@ -65,7 +77,7 @@ public class MainViewController implements Initializable {
             );
 
         } else {
-            SystemAlerts.showAlert(
+            SystemAlerts.showAlertWithDelay(
                     "System Initialized",
                     null,
                     "Found cars! Total :" + carTableView.getItems().size(),
@@ -80,7 +92,17 @@ public class MainViewController implements Initializable {
     }
 
     @FXML
-    private void onMenuItemButtonAction() {
+    private void onExitMenuItemButtonAction() {
         Platform.exit();
+    }
+
+    @FXML
+    private void onAboutMenuItemButtonAction() {
+        SystemAlerts.showAlertWithoutDelay(
+                this.aboutTitle,
+                this.aboutHeader,
+                this.aboutMessage,
+                Alert.AlertType.INFORMATION
+        );
     }
 }
