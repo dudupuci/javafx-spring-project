@@ -19,12 +19,13 @@ import java.net.URL;
 @Component
 public class StageListener implements ApplicationListener<StageReadyEvent> {
 
+    private static Scene mainScene;
     private final String applicationTitle;
     private final Resource fxml;
     private final ApplicationContext applicationContext;
 
     public StageListener(@Value("${spring.application.ui.title}") String applicationTitle,
-                         @Value("classpath:gui/LoginView.fxml") Resource fxml,
+                         @Value("classpath:gui/MainView.fxml") Resource fxml,
                          ApplicationContext applicationContext) {
         this.applicationTitle = applicationTitle;
         this.fxml = fxml;
@@ -43,16 +44,12 @@ public class StageListener implements ApplicationListener<StageReadyEvent> {
             //parent.setFitToHeight(true); // Adjust height and width of component in view
             //parent.setFitToWidth(true);
 
-
-
-            Scene scene = new Scene(parent, 600, 600);
-            stage.setScene(scene);
+            mainScene = new Scene(parent, 600, 600);
+            stage.setScene(mainScene);
             stage.setTitle(this.applicationTitle);
 
 
             stage.initStyle(StageStyle.UNDECORATED);
-
-
 
             stage.show();
         } catch (IOException err) {

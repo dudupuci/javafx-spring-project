@@ -1,13 +1,21 @@
 package com.app.javafx.controllers;
 
+import com.app.javafx.exceptions.LoginAuthenticationException;
 import com.app.javafx.services.impl.UserServiceImpl;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.ApplicationContext;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
+
+import java.io.InputStream;
+import java.net.URL;
 
 
 @Component
@@ -37,9 +45,17 @@ public class LoginViewController {
 
         if (loginRequestOperator != null) {
             this.status.setText(AUTHENTICATION_SUCCESS);
+            try {
+
+            } catch (Exception err) {
+                throw new RuntimeException("Error captured: " + err.getMessage());
+            }
+
         } else {
             this.status.setText(AUTHENTICATION_FAILED);
+            throw new LoginAuthenticationException("invalid_credentials");
         }
 
     }
+
 }
