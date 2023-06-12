@@ -7,10 +7,10 @@ import javafx.util.Duration;
 
 public class SystemAlerts {
 
-    public static void showAlert(final String title,
-                                 final String header,
-                                 final String content,
-                                 final Alert.AlertType alertType
+    public static void showAlertWithDelay(final String title,
+                                          final String header,
+                                          final String content,
+                                          final Alert.AlertType alertType
     ) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
@@ -20,5 +20,18 @@ public class SystemAlerts {
         PauseTransition delay = new PauseTransition(Duration.seconds(1.5));
         delay.setOnFinished(actionEvent -> Platform.runLater(alert::show));
         delay.play();
+    }
+
+    public static void showAlertWithoutDelay(final String title,
+                                             final String header,
+                                             final String content,
+                                             final Alert.AlertType alertType
+    ) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+
+        alert.show();
     }
 }

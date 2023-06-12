@@ -22,12 +22,12 @@
                         </Menu>
                         <Menu mnemonicParsing="false" text="Help">
                             <items>
-                                <MenuItem mnemonicParsing="false" text="About" />
+                                <MenuItem mnemonicParsing="false" text="About" onAction="#onAboutMenuItemButtonAction" fx:id="aboutMenuItem" />
                             </items>
                         </Menu>
                   <Menu mnemonicParsing="false" text="System">
                      <items>
-                        <MenuItem mnemonicParsing="false" text="Exit" onAction="#onMenuItemButtonAction"/>
+                        <MenuItem mnemonicParsing="false" text="Exit" onAction="#onExitMenuItemButtonAction" fx:id="exitMenuItem"/>
                      </items>
                   </Menu>
                     </menus>
