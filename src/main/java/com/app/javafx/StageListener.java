@@ -6,13 +6,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import javafx.util.Callback;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationListener;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 
+import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 
@@ -23,8 +23,10 @@ public class StageListener implements ApplicationListener<StageReadyEvent> {
     private final Resource fxml;
     private final ApplicationContext applicationContext;
 
+    private static Scene mainScene;
+
     public StageListener(@Value("${spring.application.ui.title}") String applicationTitle,
-                         @Value("classpath:gui/MainView.fxml") Resource fxml,
+                         @Value("classpath:gui/LoginView.fxml") Resource fxml,
                          ApplicationContext applicationContext) {
         this.applicationTitle = applicationTitle;
         this.fxml = fxml;
@@ -38,15 +40,16 @@ public class StageListener implements ApplicationListener<StageReadyEvent> {
             URL url = this.fxml.getURL();
             FXMLLoader fxmlLoader = new FXMLLoader(url);
             fxmlLoader.setControllerFactory(aClass -> applicationContext.getBean(aClass));
-            ScrollPane scrollPane = fxmlLoader.load();
 
-            scrollPane.setFitToHeight(true); // Adjust height and width of component in view
-            scrollPane.setFitToWidth(true);
+            //ScrollPane scrollPane = fxmlLoader.load();
+            Parent parent = fxmlLoader.load();
 
-            scrollPane.setStyle("-fx-border-radius: 20px; -fx-background-color: #e0e0e0;");
+            //scrollPane.setFitToHeight(true); // Adjust height and width of component in view
+            //scrollPane.setFitToWidth(true);
 
-            Scene scene = new Scene(scrollPane, 600, 600);
-            stage.setScene(scene);
+
+            mainScene = new Scene(parent, 600, 600);
+            stage.setScene(mainScene);
             stage.setTitle(this.applicationTitle);
 
 
@@ -57,5 +60,25 @@ public class StageListener implements ApplicationListener<StageReadyEvent> {
         } catch (IOException err) {
             throw new RuntimeException(err);
         }
+    }
+
+    public String getApplicationTitle() {
+        return applicationTitle;
+    }
+
+    public Resource getFxml() {
+        return fxml;
+    }
+
+    public ApplicationContext getApplicationContext() {
+        return applicationContext;
+    }
+
+    public static Scene getMainScene() {
+        return mainScene;
+    }
+
+    public void setMainScene(Scene mainScene) {
+        this.mainScene = mainScene;
     }
 }

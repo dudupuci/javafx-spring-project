@@ -3,6 +3,7 @@ server:
 
 spring:
   main:
+    ³allow-bean-definition-overriding: true
     web-application-type: none
   application:
     ui:

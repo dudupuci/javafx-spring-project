@@ -1,6 +1,5 @@
 package com.app.javafx.services.impl;
 
-import com.app.javafx.model.base.Vehicle;
 import com.app.javafx.model.entities.Car;
 import com.app.javafx.repositories.CarRepository;
 import com.app.javafx.services.CarService;
@@ -8,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 @Service

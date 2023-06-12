@@ -2,6 +2,7 @@ package com.app.javafx.controllers;
 
 import com.app.javafx.alerts.SystemAlerts;
 import com.app.javafx.model.entities.Car;
+import com.app.javafx.services.CarService;
 import com.app.javafx.services.impl.CarServiceImpl;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -12,11 +13,13 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import org.jboss.jandex.Main;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.UUID;
 
@@ -24,7 +27,7 @@ import java.util.UUID;
 public class MainViewController implements Initializable {
 
     @Autowired
-    private CarServiceImpl carService;
+    private CarService carService;
     @FXML
     private TableView<Car> carTableView;
     @FXML
@@ -43,6 +46,14 @@ public class MainViewController implements Initializable {
     private TableColumn<Car, Short> tableColumnHorsePower;
     @FXML
     private MenuItem exitMenuItem;
+
+    public MainViewController() {
+    }
+
+    @Autowired
+    public MainViewController(final CarServiceImpl carService) {
+        this.carService = Objects.requireNonNull(carService);
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -82,5 +93,9 @@ public class MainViewController implements Initializable {
     @FXML
     private void onMenuItemButtonAction() {
         Platform.exit();
+    }
+
+    public void setMainViewController(final CarService carService) {
+        this.carService = carService;
     }
 }
